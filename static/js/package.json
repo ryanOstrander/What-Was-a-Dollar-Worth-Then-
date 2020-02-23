@@ -1,0 +1,15 @@
+{
+  "name": "ryan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chartist.min.js",
+  "dependencies": {
+    "chartist-plugin-axistitle": "^0.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ryan ostrander",
+  "license": "ISC"
+}

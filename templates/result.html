@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <div class="container">
+    <head>
+        <title>${total_dollar}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/bootstrap.css">
+        <link rel="stylesheet" href="../static/css/chartist.min.css">
+    </head>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center" ><a href="/"><font color="white">What was a dollar worth</font></a></nav>
+    </header>
+    <body>
+        <script src="../static/js/chartist.min.js"></script>
+        <script src="../static/js/node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js"></script>
+
+        <div class="container">
+            <div class="bs-component">
+            <div class="row">
+                <div class="col-lg-12">
+                  <div class="jumbotron align-items-center min-vh-100ter">
+                    <div class="container">
+                        <h1 class="display-4">${total_dollar} <img src={arrow} alt="arrow" width="40" height="50"></h1>
+                        <p class="lead">${original_amount} from {number1} is worth about ${total_dollar} in {number2}</p>
+                        <hr class="my-4">
+                    </div>
+                    <br><br><div class="ct-chart ct-golden-section" id="chart1"></div>
+                    <script>
+                        var dict = {dct};
+
+                        console.log(dict);
+
+                        var years = Object.keys(dict);
+                        var inflation_rates = Object.values(dict);
+
+                        for (i = 0; i < years.length; i++)
+                            years[i] = parseInt(years[i]);
+
+                        var n1 = {number1};
+                        var n2 = {number2};
+
+                        var offset;
+
+                        var year_slice = [];
+                        var data_slice = [];
+
+                        var slice_len = Math.abs(n1 - n2);
+
+                        var number_of_points = 5;
+
+                        if (slice_len > number_of_points)
+                            offset = Math.floor(slice_len*(1/number_of_points))
+
+                        if (n1 > n2)
+                            for (i = n1; i >= n2; i = i - offset)
+                                year_slice.push(i), data_slice.push(dict[i])
+                        else
+                            for (i = n1; i <= n2; i = i + offset)
+                                year_slice.push(i), data_slice.push(dict[i])
+
+                        if (year_slice[year_slice.length - 1] != n2)
+                            year_slice.push(n2), data_slice.push(dict[n2])
+
+                        data_slice.reverse();
+
+                        new Chartist.Line('.ct-chart', {chart_data}, {options}, {min_width});
+
+                    </script>
+                    <br><br><p>The total percent change is {result}%</p>
+                    <p class="lead">
+                      <a class="btn btn-primary btn-lg" href="/" role="button">Calculate again</a>
+                    </p>
+                  </div>
+              </div>
+          </div>
+
+            </div>
+
+    </body>
+
+        <footer id="footer">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="https://github.com/ryanOstrander/What-Was-a-Dollar-Worth-Then-" target="_blank">GitHub</a></li>
+                  <li target="_blank" class="list-inline-item"><a href="https://github.com/ryanOstrander/What-Was-a-Dollar-Worth-Then-/blob/master/worth.py" target="_blank">API</a></li>
+                </ul>
+                <p>Made by Ryan Ostrander.</p>
+
+              </div>
+            </div>
+        </footer>
+    </div>
+
+</html>
